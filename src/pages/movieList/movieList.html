@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar color="danger">
+    <ion-title>
+      Film List
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<!-- <ion-list>
+  <ion-item *ngFor="let item of list">
+
+
+    <ion-card>
+        <ion-card-content>
+          <ion-card-title>
+            <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}"/>
+          </ion-card-title>
+          <p>
+          {{ item.overview }}
+          </p>
+      </ion-card-content>
+    </ion-card>
+    <button ion-button right (click)="removeFromList(item)">remove</button>
+</ion-item>
+</ion-list> -->
+
+<!-- <ion-list>
+    <button ion-item *ngFor="let item of list" (click)=openDetailesModal(item)>
+      <img src="http://image.tmdb.org/t/p/w185{{item.poster_path}}"/>
+      <p class="paragraph-list">{{ item.title }}</p>
+    </button>
+</ion-list> -->
+
+<ion-grid >
+  <ion-row wrap color="#ffffff">
+    <ion-col *ngFor="let item of list" col-4>
+      <ion-thumbnail item-start>
+        <img height="150" src="http://image.tmdb.org/t/p/w185/{{item.poster_path}}" (click)="openDetailesModal(item)">
+      </ion-thumbnail>
+      <p text-center *ngIf="item.title !== null" (click)="openDetailesModal(item)" color="#ffffff"> {{ item.title }}</p>
+      <p *ngIf="item.name !== null" (click)="openDetailesModal(item)"> {{ item.name }}</p>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+</ion-content>

@@ -1,0 +1,14 @@
+page-people {
+  img{
+  width: auto;
+  margin: auto;
+  display: block;
+  padding:1px;
+  border:1px solid map-get($colors, light);
+  background-color:map-get($colors, light);
+
+}
+  .list-text{
+    color: map-get($colors, light);
+  }
+}

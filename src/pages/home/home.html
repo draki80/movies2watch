@@ -1,13 +1,50 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>Home</ion-title>
+  <ion-navbar color="danger">
+    <ion-title>
+      Movies
+    </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
-      {{ item.text }}
-    </button>
-  </ion-list>
+<ion-content padding >
+
+  <form (ngSubmit)="searchForMovies()" >
+    <ion-item color="dark">
+      <ion-input clearInput="true" placeholder="search" type="text"[(ngModel)]="value.title" name="title"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block round outline hidden>Search</button>
+  </form>
+
+  <ion-grid >
+    <ion-row wrap>
+      <ion-col *ngFor="let item of movieList" col-4>
+        <ion-thumbnail item-start>
+          <img height="150" src="http://image.tmdb.org/t/p/w92/{{item.poster_path}}" (click)="openDetailesModal(item)">
+        </ion-thumbnail>
+        <p text-center *ngIf="item.title !== null" (click)="openDetailesModal(item)" color="#ffffff"> {{ item.title }}</p>
+        <p *ngIf="item.name !== null" (click)="openDetailesModal(item)"> {{ item.name }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
+
+<ion-footer class="footer">
+
+    <ion-segment [(ngModel)]="segment" >
+      <ion-segment-button value="popular" (click)=getApiData()>
+        Popular
+      </ion-segment-button>
+      <ion-segment-button value="now_playing" (click)=getApiData()>
+        Now playing
+      </ion-segment-button>
+      <ion-segment-button value="top_rated" (click)=getApiData()>
+        Top rated
+      </ion-segment-button>
+      <ion-segment-button value="upcoming" (click)=getApiData()>
+        Upcoming
+      </ion-segment-button>
+
+    </ion-segment>
+
+</ion-footer>

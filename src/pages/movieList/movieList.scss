@@ -1,0 +1,19 @@
+page-about {
+  .paragraph-list {
+    color: white;
+    float: right;
+  }
+
+  img {
+    width: auto;
+    margin: auto;
+    display: block;
+    padding: 1px;
+    border: 1px solid map-get($colors, light);
+    background-color: map-get($colors, light);
+  }
+
+  p {
+    color: map-get($colors, light);
+  }
+}

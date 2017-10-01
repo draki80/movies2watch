@@ -1,0 +1,48 @@
+<ion-header>
+
+  <ion-navbar color="danger">
+
+    <ion-title>
+      People
+    </ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding >
+
+  <form (ngSubmit)="getSearchData()" >
+    <ion-item color="dark">
+      <ion-input clearInput="true" placeholder="search" type="text"[(ngModel)]="value.title" name="title"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" block round outline hidden>Search</button>
+  </form>
+
+  <ion-grid >
+    <ion-row wrap>
+      <ion-col *ngFor="let item of peopleList" col-4>
+        <ion-thumbnail item-start  *ngIf="item.profile_path === 'img/NoImage.jpg'" (click)="openDetailesModal(item)">
+          <img height="150" src="{{item.profile_path}}">
+        </ion-thumbnail>
+        <ion-thumbnail item-start  *ngIf="item.profile_path !== 'img/NoImage.jpg'" (click)="openDetailesModal(item)">
+          <img height="150" src="http://image.tmdb.org/t/p/w185/{{item.profile_path}}">
+        </ion-thumbnail>
+        <p class = "list-text"> {{ item.name }}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer class="footer">
+
+    <ion-segment [(ngModel)]="segment">
+
+      <ion-segment-button value="popular" (click)=getApiData()>
+        Popular
+      </ion-segment-button>
+
+    </ion-segment>
+
+</ion-footer>

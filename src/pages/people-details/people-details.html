@@ -1,0 +1,80 @@
+<ion-header>
+
+  <ion-navbar color="danger">
+    <ion-title>
+      Person Details
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-grid>
+
+    <ion-row>
+      <h1 class="title-text"> {{ details.name }}</h1>
+    </ion-row>
+
+    <ion-row>
+      <ion-item no-lines>
+        <img class = "title_image" width=100% src="http://image.tmdb.org/t/p/w185{{ details.profile_path }}" />
+      </ion-item>
+    </ion-row>
+
+    <ion-row class="birthday-text">
+
+      <ion-col>
+        <p>Birthday: {{ details.birthday }} </p>
+        <p *ngIf="details.deathday !== null"> Deathday: {{ details.deathday }}</p>
+
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+
+        <ion-col *ngFor="let item of details.known_for; let i = index" col-4>
+        <img *ngIf="details.known_for !== null" class="cast-images" height="150"  src="http://image.tmdb.org/t/p/w185/{{item.poster_path}}">
+        <p *ngIf="details.known_for !== null" class="cast-paragraph"> {{ item.title }} </p>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+
+      <ion-col>
+
+        <h3>Biography</h3>
+        <p class="biography-text">Place of birth: <b> {{ details.place_of_birth }} </b></p>
+        <p class="biography-text"> {{ details.biography }} </p>
+
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+      <h3 col-12>Filmography</h3>
+      <ion-col *ngFor="let item of details.combined_credits.cast; let i = index" col-4>
+        <img class="cast-images" *ngIf="item.poster_path == 'img/NoImage.jpg'" height="150" src="{{item.poster_path}}" (click)="openDetailesModal(item)">
+        <img class="cast-images" *ngIf="item.poster_path !== 'img/NoImage.jpg'" height="150" src="http://image.tmdb.org/t/p/w185/{{item.poster_path}}" (click)="openDetailesModal(item)">
+        <p *ngIf="item.name !== null" class="cast-paragraph" (click)="openDetailesModal(item)"> {{ item.name }} </p>
+        <p *ngIf="item.title !== null" class="cast-paragraph" (click)="openDetailesModal(item)"> {{ item.title }} </p>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="danger">
+    <ion-buttons left>
+      <button ion-button (click)="closeModal()">
+          <ion-icon color="dark" ion-fab name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-fab color="dark" (click)="setData(details)"><ion-icon name="add"></ion-icon></button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

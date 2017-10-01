@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { DetailsPage } from '../details/details';
+import { NavController, ModalController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+
 import { MoviesProvider } from '../../providers/movies/movies';
 
 @Component({
@@ -8,25 +9,48 @@ import { MoviesProvider } from '../../providers/movies/movies';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  items:any[];
-  constructor(public navCtrl: NavController, public movies: MoviesProvider) {
-    this.items = [];
-    for (let i = 0; i < 10; i++){
-      this.items.push({
-        text: 'Item' + i,
-        id: i
-      });
+
+  value: {title: string, type: string} = {title: "", type: "movie"};
+  movieList:any;
+  segment:string = "popular";
+
+  constructor(public navCtrl: NavController,
+              public moviesProvider: MoviesProvider,
+              private storage: Storage,
+              private modal: ModalController) {
+                this.getApiData();
+  }
+
+  searchForMovies(){
+    this.moviesProvider.getSearchData(this.value)
+    .then(data =>{
+      this.segment = "";
+      this.removeWithoutImages(data);
+      this.movieList = data;
+    })
+  }
+
+  openDetailesModal(item) {
+    this.moviesProvider.getMovieDetails(item)
+      .then(data => {
+          let detailsModal =  this.modal.create('DetailsPage', {item: data});
+          detailsModal.present();
+      })
+  }
+
+  getApiData() {
+    this.moviesProvider.getMovies(this.segment)
+      .then(data => {
+        this.movieList = data;
+      })
+  }
+
+  removeWithoutImages(data){
+    for(var i = 0; i < data.length; i++){
+      if(data[i].poster_path == null){
+        data.splice(i, 1);
+      }
     }
   }
-itemSelected(item) {
-  this.navCtrl.push(DetailsPage, {
-    item: item
-  })
-}
-
-ionViewDidLoad(){
-  this.movies.getMovieSearchData();
-}
-
 
 }

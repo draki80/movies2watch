@@ -1,18 +1,66 @@
-<!--
-  Generated template for the DetailsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Welcome number {{ item.id }}</ion-title>
+  <ion-navbar color="danger">
+    <ion-title>
+      Movie Details
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
 
-
 <ion-content padding>
-  Good job {{ item.text }}
+
+  <ion-grid>
+
+    <ion-row>
+      <h1 class="title-text"> {{ details.title }}</h1>
+    </ion-row>
+
+    <ion-row>
+      <ion-item no-lines>
+        <img width=100% src="http://image.tmdb.org/t/p/w185{{ details.poster_path }}" />
+      </ion-item>
+    </ion-row>
+
+    <ion-row wrap>
+      <ion-col *ngFor="let item of details.genres; " col-3>
+        <ion-badge>{{ item.name }}</ion-badge>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <h3>Overview</h3>
+        <p class="overview-text"> {{ details.overview }} </p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+
+      <ion-col>
+        <h3>Cast</h3>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col *ngFor="let item of details.casts.cast; let i = index" col-4>
+        <img class="cast-images" (click)=openDetailesModal(item) height="150" src="http://image.tmdb.org/t/p/w185/{{item.profile_path}}">
+        <p class="cast-paragraph"(click)=openDetailesModal(item)> {{ item.name }} </p>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
 </ion-content>
+
+<ion-footer >
+  <ion-toolbar color="danger">
+    <ion-buttons left>
+      <button ion-button (click)="closeModal()">
+          <ion-icon color="dark" ion-fab name="arrow-back"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-fab color="dark" (click)="setData(details)"><ion-icon name="add"></ion-icon></button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

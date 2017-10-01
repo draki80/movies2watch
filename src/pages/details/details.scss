@@ -1,3 +1,33 @@
 page-details {
-
+    img{
+    width: auto;
+    margin: auto;
+    display: block;
+    padding:1px;
+    border:1px solid map-get($colors, light);
+    background-color:map-get($colors, light);
+  }
+  .cast-images{
+    width: auto;
+    margin: auto;
+    display: block;
+    padding:1px;
+    border:1px solid map-get($colors, light);
+  }
+  .cast-paragraph{
+    color: map-get($colors, light);
+  }
+  h3{
+    color: map-get($colors, light);
+  }
+  .overview-text{
+     text-align: justify;
+     color: map-get($colors, light);
+  }
+  .genres-paragraph{
+     color: map-get($colors, light);
+  }
+  .title-text{
+     color: map-get($colors, light);
+  }
 }
